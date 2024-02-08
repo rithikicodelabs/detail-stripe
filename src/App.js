@@ -4,7 +4,6 @@ import './App.css';
 function App() {
   const [link, SetLink] = useState('');
   const [isopen, setIsOpen] = useState(false)
-  console.log(isopen)
   const [formData, setFormData] = useState({
     amount: '',
     eventDate: '',
@@ -14,7 +13,6 @@ function App() {
     customerName: '',
   });
   const handleCopyLink = async (e) => {
-    console.log(e)
     try {
       await navigator.clipboard.writeText(link);
       alert('Link copied to clipboard!');
@@ -76,6 +74,7 @@ function App() {
     //   customerName: ''
     // });
   }
+  const areAllfieldPresent = formData?.amount !== '' && formData?.eventDate !== '' && formData?.description !== '' && formData?.customerCompany !== '' && formData?.companyContact !== '' && formData?.customerName !== ''
   return (
     <div className="App">
       <header className="App-header">
@@ -113,7 +112,7 @@ function App() {
           <input type="text" id="customerName" name="customerName" onChange={handleInputChange} value={formData.customerName} placeholder="Customer Name" />
 
           <div className="button-container">
-            <button type="submit" id="generateButton">CREATE PAYMENT LINK</button>
+            <button type="submit" id="generateButton" disabled={!areAllfieldPresent}>CREATE PAYMENT LINK</button>
           </div>
         </form>
         {isopen ?
@@ -121,7 +120,17 @@ function App() {
             <p id="invoiceLink"></p>
             <div id="overlay"></div>
             <div id="modal">
-              <button id="closeModalButton" onClick={() => setIsOpen(false)}>
+              <button id="closeModalButton" onClick={() => {
+                setIsOpen(false);
+                setFormData({
+                  amount: '',
+                  eventDate: '',
+                  description: '',
+                  customerCompany: '',
+                  companyContact: '',
+                  customerName: ''
+                });
+              }}>
                 <svg width="20px" height="20px" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M0.132 0.132a0.025 0.025 0 0 1 0.035 0L0.3 0.265l0.132 -0.132a0.025 0.025 0 1 1 0.035 0.035L0.335 0.3l0.132 0.132a0.025 0.025 0 0 1 -0.035 0.035L0.3 0.335l-0.132 0.132a0.025 0.025 0 0 1 -0.035 -0.035L0.265 0.3 0.132 0.168a0.025 0.025 0 0 1 0 -0.035z"
