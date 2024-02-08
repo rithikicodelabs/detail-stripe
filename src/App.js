@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [link, SetLink] = useState('yoyo');
+  const [link, SetLink] = useState('');
   const [isopen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState({
     amount: '',
@@ -31,7 +31,6 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // action
-    console.log(formData, 'values')
     const { amount, customerName, description } = formData
     fetch('https://zbryjx4e2c.execute-api.us-east-2.amazonaws.com/prod/stripe2', {
       method: 'POST',
@@ -50,7 +49,6 @@ function App() {
       .then(data => {
         // Display the Stripe payment link
         if (data && data.paymentLink) {
-          console.log(data.paymentLink, 'LS')
           const generateButton = document.getElementById('generateButton');
           generateButton.innerText = 'View Invoice';
           generateButton.onclick = function () {
@@ -67,7 +65,7 @@ function App() {
         console.error('Error:', error);
         document.getElementById('invoiceLink').innerText = 'Error generating invoice.';
       });
-    //Reseting the form
+    // Reseting the form
     // setFormData({
     //   amount: '',
     //   eventDate: '',
@@ -129,7 +127,7 @@ function App() {
                 <p className="copy-link">Copy the link below and share with your client.</p>
                 <div className="copy-input">
                   <input id='link' value={link} />
-                  <button className="copy-link-button" onclick={handleCopyLink}>
+                  <button className="copy-link-button" onClick={handleCopyLink}>
                     Copy Link
                   </button>
                 </div>
