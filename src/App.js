@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [link, SetLink] = useState('');
   const [isopen, setIsOpen] = useState(false)
+  console.log(isopen)
   const [formData, setFormData] = useState({
     amount: '',
     eventDate: '',
@@ -78,44 +79,49 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className="container">
-          <div className="header">
-            <h1 className="title">Send a Payment Request</h1>
-            <p>from Kings Dining & Entertainment</p>
+        <div className="header-logo">
+          <h1>BUYOUT</h1>
+        </div>
+      </header>
+      <div className="container">
+        <div className="header">
+          <h1 className="title">Send a Payment Request</h1>
+          <p>from Kings Dining & Entertainment</p>
+        </div>
+        <form id="invoiceForm" onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="input-form">
+              <input type="number" id="amount" name="amount" onChange={handleInputChange} value={formData.amount} placeholder="Requested Payment Amount" />
+            </div>
+            <div className="input-form">
+              <input type="date" id="eventData" name="eventDate" onChange={handleInputChange} value={formData.eventDate} placeholder="Event Date" />
+            </div>
           </div>
-          <form id="invoiceForm" onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="input-form">
-                <input type="number" id="amount" name="amount" onChange={handleInputChange} value={formData.amount} placeholder="Requested Payment Amount" />
-              </div>
-              <div className="input-form">
-                <input type="date" id="eventData" name="eventDate" onChange={handleInputChange} value={formData.eventDate} placeholder="Event Date" />
-              </div>
-            </div>
 
-            <div className="description-box">
-              <textarea id="description" name="description" onChange={handleInputChange} value={formData.description}
-                placeholder="Description - For Internal Records"></textarea>
-            </div>
+          <div className="description-box">
+            <textarea id="description" name="description" onChange={handleInputChange} value={formData.description}
+              placeholder="Description - For Internal Records"></textarea>
+          </div>
 
-            <div className="single-col">
-              <input type="text" id="customerCompany" name="customerCompany" onChange={handleInputChange} value={formData.customerCompany} placeholder="Customer Company" />
-            </div>
-            <div className="single-col">
-              <input type="text" id="companyContact" name="companyContact" onChange={handleInputChange} value={formData.companyContact} placeholder="Company Point of Contact" />
-            </div>
+          <div className="single-col">
+            <input type="text" id="customerCompany" name="customerCompany" onChange={handleInputChange} value={formData.customerCompany} placeholder="Customer Company" />
+          </div>
+          <div className="single-col">
+            <input type="text" id="companyContact" name="companyContact" onChange={handleInputChange} value={formData.companyContact} placeholder="Company Point of Contact" />
+          </div>
 
-            <input type="text" id="customerName" name="customerName" onChange={handleInputChange} value={formData.customerName} placeholder="Customer Name" />
+          <input type="text" id="customerName" name="customerName" onChange={handleInputChange} value={formData.customerName} placeholder="Customer Name" />
 
-            <div className="button-container">
-              <button type="submit" id="generateButton">CREATE PAYMENT LINK</button>
-            </div>
-          </form>
-          {isopen ? <div>
+          <div className="button-container">
+            <button type="submit" id="generateButton">CREATE PAYMENT LINK</button>
+          </div>
+        </form>
+        {isopen ?
+          <div>
             <p id="invoiceLink"></p>
             <div id="overlay"></div>
             <div id="modal">
-              <button id="closeModalButton">
+              <button id="closeModalButton" onClick={() => setIsOpen(false)}>
                 <svg width="20px" height="20px" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M0.132 0.132a0.025 0.025 0 0 1 0.035 0L0.3 0.265l0.132 -0.132a0.025 0.025 0 1 1 0.035 0.035L0.335 0.3l0.132 0.132a0.025 0.025 0 0 1 -0.035 0.035L0.3 0.335l-0.132 0.132a0.025 0.025 0 0 1 -0.035 -0.035L0.265 0.3 0.132 0.168a0.025 0.025 0 0 1 0 -0.035z"
@@ -137,8 +143,7 @@ function App() {
               </div>
             </div>
           </div> : null}
-        </div>
-      </header>
+      </div>
     </div>
   );
 }
