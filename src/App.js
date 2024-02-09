@@ -89,11 +89,29 @@ function App() {
         </div>
         <form id="invoiceForm" onSubmit={handleSubmit}>
           <div className="row">
-            <div className="input-form">
+            <div className="input-form input-row">
+              <span className='dollar-icon'>$</span>
               <input type="number" id="amount" name="amount" onChange={handleInputChange} value={formData.amount} placeholder="Requested Payment Amount" />
             </div>
             <div className="input-form">
-              <input type="date" id="eventData" name="eventDate" onChange={handleInputChange} value={formData.eventDate} placeholder="Event Date" />
+
+              <input
+                name="eventDate"
+                onChange={handleInputChange}
+                value={formData.eventDate}
+                placeholder="Event Date"
+                class="textbox-n"
+                type="text"
+                onFocus={(e) => {
+                  e.target.type = "date"
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value) {
+                    e.target.type = 'text';
+                  }
+                }}
+                id="eventDate"
+              />
             </div>
           </div>
 

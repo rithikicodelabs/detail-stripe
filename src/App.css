@@ -11,7 +11,7 @@ body {
   padding: 40px;
   border-radius: 50px;
   width: 100%;
-  max-width: 500px;
+  max-width: 812px;
   margin: 60px auto;
 }
 
@@ -63,6 +63,10 @@ label {
   font-size: 14px;
 }
 
+.row .input-row input {
+  margin-bottom: 0;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -94,6 +98,21 @@ textarea:focus {
   width: calc(50% - 9px);
 }
 
+.row .input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.row .input-row .dollar-icon {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: 0em;
+  color: #A8A8A8;
+  margin-right: 14px;
+}
+
 .button-container {
   /* text-align: center; */
   padding-top: 10px;
@@ -109,6 +128,12 @@ textarea:focus {
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  height: 71px;
+  width: 287px;
+}
+
+.button-container button:disabled {
+  background-color: #8B8B8B;
 }
 
 button:hover {
@@ -187,6 +212,7 @@ button:hover {
   height: 35px;
   display: flex;
   align-items: center;
+  border: 1px solid #333333;
   justify-content: center;
   border-radius: 17px;
   font-size: 15px;
@@ -200,7 +226,6 @@ button:hover {
 }
 
 .notification-text {
-  font-family: Inter;
   font-size: 25px;
   font-weight: 400;
   line-height: 30px;
@@ -211,9 +236,9 @@ button:hover {
 }
 
 .header-logo h1 {
-  font-size: 60px;
+  font-size: 40px;
   font-weight: 900;
-  line-height: 73px;
+  line-height: 48px;
   letter-spacing: 0em;
   text-align: left;
 }
@@ -236,6 +261,12 @@ button:hover {
   }
 }
 
+@media(max-width: 1024px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
 @media(max-width: 768px) {
   .container {
     width: 80%;
@@ -245,6 +276,33 @@ button:hover {
 
   header.App-header {
     padding: 0 24px;
+  }
+
+  .content .payment-heading {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .content .copy-link {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .copy-input input {
+    padding: 0 110px 0 18px;
+  }
+
+  .notification-text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  #modal {
+    width: 85%;
+  }
+
+  .content {
+    padding: 0;
   }
 }
 
