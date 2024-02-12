@@ -12,6 +12,9 @@ function App() {
     companyContact: '',
     customerName: '',
   });
+  const [showLoader, setShowLoader] = useState(false);
+
+  // on copy button clicked
   const handleCopyLink = async (e) => {
     try {
       await navigator.clipboard.writeText(link);
@@ -20,17 +23,23 @@ function App() {
       console.error('Unable to copy link: ', err);
     }
   };
+  
+  // on details change
   const handleInputChange = (e) => {
     const { name, value } = e.target || {};
     setFormData({
       ...formData,
       [name]: value
     });
-  }
+  };
+
+  // submit function
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShowLoader(true);
+
     // action
-    const { amount, customerName, description } = formData
+    const { amount, customerName, description } = formData;
     fetch('https://zbryjx4e2c.execute-api.us-east-2.amazonaws.com/prod/stripe2', {
       method: 'POST',
       headers: {
@@ -39,7 +48,7 @@ function App() {
       body: JSON.stringify({
         amount: amount,
         customerName: customerName,
-        description: description,
+        description: " ", //removing description here can add later by passing it.
         success_url: 'https://example.com/success', // Replace with actual success URL
         cancel_url: 'https://example.com/cancel', // Replace with actual cancel URL
       })
@@ -48,31 +57,23 @@ function App() {
       .then(data => {
         // Display the Stripe payment link
         if (data && data.paymentLink) {
-          const generateButton = document.getElementById('generateButton');
-          generateButton.innerText = 'View Invoice';
-          generateButton.onclick = function () {
-            window.open(data.paymentLink, '_blank');
-          };
+          // const generateButton = document.getElementById('generateButton');
+          // generateButton.innerText = 'Create Payment Link';
+          // generateButton.onclick = function () {
+          //   window.open(data.paymentLink, '_blank');
+          // };
           setIsOpen(true);
           SetLink(data.paymentLink)
         } else {
           // Handle any errors that don't throw an exception but result in no link
           document.getElementById('invoiceLink').innerText = 'Error generating invoice. No payment link was returned.';
         }
+        setShowLoader(false);
       })
       .catch(error => {
         console.error('Error:', error);
         document.getElementById('invoiceLink').innerText = 'Error generating invoice.';
       });
-    // Reseting the form
-    // setFormData({
-    //   amount: '',
-    //   eventDate: '',
-    //   description: '',
-    //   customerCompany: '',
-    //   companyContact: '',
-    //   customerName: ''
-    // });
   }
   const areAllfieldPresent = formData?.amount !== '' && formData?.eventDate !== '' && formData?.description !== '' && formData?.customerCompany !== '' && formData?.companyContact !== '' && formData?.customerName !== ''
   return (
@@ -87,7 +88,7 @@ function App() {
           <h1 className="title">Send a Payment Request</h1>
           <p>from Kings Dining & Entertainment</p>
         </div>
-        <form id="invoiceForm" onSubmit={handleSubmit}>
+        <form id="invoiceForm" onSubmit={(e)=>handleSubmit(e)}>
           <div className="row">
             <div className="input-form input-row">
               <span className='dollar-icon'>$</span>
@@ -100,7 +101,7 @@ function App() {
                 onChange={handleInputChange}
                 value={formData.eventDate}
                 placeholder="Event Date"
-                class="textbox-n"
+                className="textbox-n"
                 type="text"
                 onFocus={(e) => {
                   e.target.type = "date"
@@ -127,10 +128,10 @@ function App() {
             <input type="text" id="companyContact" name="companyContact" onChange={handleInputChange} value={formData.companyContact} placeholder="Company Point of Contact" />
           </div>
 
-          <input type="text" id="customerName" name="customerName" onChange={handleInputChange} value={formData.customerName} placeholder="Customer Name" />
+          <input type="text" id="customerName" name="customerName" onChange={handleInputChange} value={formData.customerName} placeholder="Event Name" />
 
           <div className="button-container">
-            <button type="submit" id="generateButton" disabled={!areAllfieldPresent}>CREATE PAYMENT LINK</button>
+            <button type="submit" id="generateButton" disabled={!areAllfieldPresent}>{showLoader ? <div className="loader" /> : "Create Payment Link" }</button>
           </div>
         </form>
         {isopen ?
@@ -155,17 +156,21 @@ function App() {
                     fill="#0D0D0D" />
                 </svg>
               </button>
+
+              {/* Modal */}
               <div className="content">
                 <h3 className="payment-heading">Payment Request Created.</h3>
                 <p className="copy-link">Copy the link below and share with your client.</p>
                 <div className="copy-input">
                   <input id='link' value={link} />
                   <button className="copy-link-button" onClick={handleCopyLink}>
+                    <svg className='svgLink' width="25px" height="25px" viewBox="0 0 0.5 0.5" xmlns="http://www.w3.org/2000/svg" fill="#000000"><path fillRule="evenodd" clipRule="evenodd" d="M0.138 0.094h0.096a0.106 0.106 0 0 1 0.106 0.106v0.006A0.106 0.106 0 0 1 0.234 0.313H0.219V0.281h0.015A0.075 0.075 0 0 0 0.309 0.207V0.2A0.075 0.075 0 0 0 0.234 0.125H0.138A0.075 0.075 0 0 0 0.063 0.2v0.006A0.075 0.075 0 0 0 0.125 0.28v0.031a0.106 0.106 0 0 1 -0.094 -0.105V0.2A0.106 0.106 0 0 1 0.138 0.094zM0.375 0.22v-0.031a0.106 0.106 0 0 1 0.094 0.105v0.006A0.106 0.106 0 0 1 0.363 0.406h-0.097A0.106 0.106 0 0 1 0.16 0.3V0.294A0.106 0.106 0 0 1 0.266 0.188H0.281v0.031h-0.015A0.075 0.075 0 0 0 0.191 0.294v0.006A0.075 0.075 0 0 0 0.266 0.375h0.097A0.075 0.075 0 0 0 0.438 0.3V0.294a0.075 0.075 0 0 0 -0.063 -0.074z" /></svg>
                     Copy Link
                   </button>
                 </div>
                 <div className="notification-text">
                   You’ll get a notification when your client has paid.
+                  <p className={"anotherPaymentRequest"} onClick={()=> window && window.location.reload()}>Start another payment request</p>
                 </div>
               </div>
             </div>

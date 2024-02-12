@@ -333,3 +333,39 @@ button:hover {
     line-height: 30px;
   }
 }
+
+.loader {
+  border: 5px solid white;
+  border-radius: 50%;
+  border-top: 5px solid grey;
+  width: 45px;
+  height: 45px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  position: relative;
+  top: -5px;
+  left: 80px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.anotherPaymentRequest{
+  color: rgb(75, 75, 182);
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.svgLink{
+  fill: white;
+  gap: 10px;
+  padding: 10px;
+}
