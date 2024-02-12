@@ -19,8 +19,8 @@ body {
   text-align: center;
   font-size: 24px;
   border-bottom: 1px solid #BBBBBB;
-  padding-bottom: 12px;
-  margin-bottom: 47px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 header.App-header {
@@ -34,9 +34,9 @@ header.App-header {
 
 .title {
   margin: 0;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 46px;
+  line-height: 36px;
   letter-spacing: 0em;
   text-align: left;
   color: #000000;
@@ -48,9 +48,9 @@ header.App-header {
 
 .header p {
   margin: 0;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 400;
-  line-height: 46px;
+  line-height: 36px;
   letter-spacing: 0em;
   text-align: left;
   color: #000000;
@@ -130,6 +130,7 @@ textarea:focus {
   transition: background-color 0.3s ease;
   height: 71px;
   width: 287px;
+  text-transform: uppercase;
 }
 
 .button-container button:disabled {
@@ -163,11 +164,12 @@ button:hover {
 }
 
 .content .payment-heading {
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 42px;
+  line-height: 36px;
   letter-spacing: 0em;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 #closeModalButton {
@@ -179,14 +181,14 @@ button:hover {
 }
 
 .content .copy-link {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 30px;
+  line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
   margin-top: 0;
-  margin-bottom: 47px;
   color: #525252;
+  margin-bottom: 47px;
 }
 
 .copy-input input {
@@ -194,7 +196,7 @@ button:hover {
   width: 100%;
   height: 42px;
   border-radius: 50px;
-  padding: 0 120px 0 39px;
+  padding: 0 160px 0 39px;
   box-sizing: border-box;
 }
 
@@ -226,12 +228,12 @@ button:hover {
 }
 
 .notification-text {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 30px;
+  line-height: 24px;
   letter-spacing: 0em;
   text-align: center;
-  margin-top: 47px;
+  margin-top: 28px;
   color: #525252;
 }
 
@@ -359,9 +361,12 @@ button:hover {
 }
 
 .anotherPaymentRequest{
-  color: rgb(75, 75, 182);
-  font-size: 20px;
-  cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #7195A0;
   text-decoration: underline;
 }
 .svgLink{
