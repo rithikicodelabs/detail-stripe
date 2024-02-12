@@ -368,6 +368,7 @@ button:hover {
   text-align: center;
   color: #7195A0;
   text-decoration: underline;
+  cursor: pointer;
 }
 .svgLink{
   fill: white;
